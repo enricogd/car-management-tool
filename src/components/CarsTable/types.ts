@@ -1,10 +1,4 @@
-export interface Car {
-  _id: string
-  brand: string
-  title: string
-  age: number
-  price: string
-}
+import { Car } from 'interfaces/Car'
 
 export type SortBy = {
   header: keyof Pick<Car, 'brand' | 'age' | 'price' | 'title'> | 'default'

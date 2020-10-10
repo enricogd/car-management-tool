@@ -1,4 +1,4 @@
-import { Car } from 'pages/Dashboard/types'
+import { Car } from 'interfaces/Car'
 
 export const cleaner = (cars: Car[]) =>
   cars.filter(
