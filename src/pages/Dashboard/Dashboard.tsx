@@ -1,20 +1,10 @@
-import React, { useMemo, useState } from 'react'
-import { cars } from 'data/cars'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Car, SortBy } from './types'
+import { getCars } from './services'
+import { cleaner } from 'util/cars'
 
 export default function Dashboard() {
-  const cleaner = (cars: Car[]) =>
-    cars.filter(
-      (car) =>
-        !(
-          car.brand === 'brand' ||
-          car.brand === 'Marca' ||
-          car.brand === 'Teste' ||
-          car.brand === 'N/A'
-        )
-    )
-
-  const [carsList, setCarsList] = useState<Car[]>(cleaner(cars))
+  const [carsList, setCarsList] = useState<Car[]>([])
   const [sortBy, setSortBy] = useState<SortBy>({
     header: 'default',
     order: 'asc',
@@ -59,6 +49,15 @@ export default function Dashboard() {
     setSortBy({ header: col, order: 'asc' })
   }
 
+  const fetchCars = async () => {
+    const res = await getCars()
+    setCarsList(cleaner(res))
+  }
+
+  useEffect(() => {
+    fetchCars()
+  }, [])
+
   return (
     <table>
       <thead>
@@ -86,20 +85,21 @@ export default function Dashboard() {
         </tr>
       </thead>
       <tbody>
-        {carsList.map((car) => (
-          <tr key={car._id}>
-            <td>{car.brand}</td>
-            <td>
-              <p>{car.title}</p>
-            </td>
-            <td>
-              <p>{car.age}</p>
-            </td>
-            <td>
-              <p>{car.price}</p>
-            </td>
-          </tr>
-        ))}
+        {carsList &&
+          carsList.map((car) => (
+            <tr key={car._id}>
+              <td>{car.brand}</td>
+              <td>
+                <p>{car.title}</p>
+              </td>
+              <td>
+                <p>{car.age}</p>
+              </td>
+              <td>
+                <p>{car.price}</p>
+              </td>
+            </tr>
+          ))}
       </tbody>
     </table>
   )
