@@ -1,4 +1,13 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
+
+export const Container = styled.div`
+  display: flex;
+  height: 100%;
+  place-content: center;
+  place-items: center;
+  width: 100%;
+  max-width: 100vw;
+`
 
 export const Grid = styled.div`
   width: 100%;
@@ -12,7 +21,7 @@ export const Row = styled.div`
 
 export const Col = styled.div`
   flex: ${(props: { size: number }) => props.size};
-  flex-direction: column;
-  margin: 1rem;
+  flex-flow: column wrap;
+  margin: 8px;
   min-width: fit-content;
 `

@@ -1,10 +1,18 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components/macro'
 import { transition } from 'styles/helpers'
+
+export const Main = styled.main`
+  display: flex;
+  height: 100%;
+  max-width: 1200px;
+  padding: 16px 0;
+  width: 100%;
+`
 
 export const Section = styled.section`
   ${({ theme }) => css`
     align-items: center;
-    background: ${theme.colors.secondary};
+    background: ${theme.colors.sectionBg};
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -16,26 +24,26 @@ export const Section = styled.section`
 export const Header = styled.div`
   ${({ theme }) => css`
     align-items: center;
-    border-bottom: 1px solid ${theme.colors.secondary};
-    color: ${theme.colors.quinary};
+    border-bottom: 1px solid ${theme.colors.primary};
+    color: ${theme.colors.primary};
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 1.5rem;
+    padding: 16px;
     width: 100%;
     line-height: 2.5rem;
   `}
 `
 
-export const Main = styled.div`
-  /* padding: 1.5rem; */
+export const Content = styled.div`
   width: 100%;
+  padding: 16px;
 `
 
 export const Button = styled.button`
   ${({ theme }) => css`
     align-items: center;
-    background: ${theme.colors.quinary};
+    background: ${theme.colors.primary};
     border-radius: 5px;
     border: none;
     box-shadow: 0px 3px 6px ${theme.colors.tertiary};

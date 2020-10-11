@@ -1,6 +1,14 @@
 import { Car } from 'interfaces/Car'
 import React, { useEffect, useMemo, useState } from 'react'
 import { SortBy } from './types'
+import * as S from './styles'
+import { MdDelete, MdEdit } from 'react-icons/md'
+import {
+  TiArrowSortedDown,
+  TiArrowSortedUp,
+  TiArrowUnsorted,
+} from 'react-icons/ti'
+import ReactTooltip from 'react-tooltip'
 
 export default function Carstable({ cars }: { cars: Car[] }) {
   const [sortBy, setSortBy] = useState<SortBy>({
@@ -48,32 +56,46 @@ export default function Carstable({ cars }: { cars: Car[] }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortBy])
 
+  const handleSortIcon = (col: SortBy['header']) => {
+    const { header, order } = sortBy
+    if (col === 'default') return
+    if (header === col) {
+      // TODO: check if sorted down is asc or desc in other websites
+      return order === 'asc' ? <TiArrowSortedDown /> : <TiArrowSortedUp />
+    }
+    return <TiArrowUnsorted />
+  }
+
   useEffect(() => {
     setTableData(cars)
   }, [cars])
 
   return (
-    <table>
+    <S.Table>
       <thead>
         <tr>
           <th onClick={sortRowsBy('brand')}>
             <div>
               <p>Marca</p>
+              {handleSortIcon('brand')}
             </div>
           </th>
           <th onClick={sortRowsBy('title')}>
             <div>
               <p>Modelo</p>
+              {handleSortIcon('title')}
             </div>
           </th>
           <th onClick={sortRowsBy('age')}>
             <div>
               <p>Ano</p>
+              {handleSortIcon('age')}
             </div>
           </th>
           <th onClick={sortRowsBy('price')}>
             <div>
               <p>Preço</p>
+              {handleSortIcon('price')}
             </div>
           </th>
         </tr>
@@ -90,11 +112,29 @@ export default function Carstable({ cars }: { cars: Car[] }) {
                 <p>{car.age}</p>
               </td>
               <td>
-                <p>{car.price}</p>
+                <p>R$ {car.price}</p>
+              </td>
+              <td>
+                <S.ButtonsWrapper>
+                  <MdDelete
+                    data-tip
+                    data-for="delete"
+                    onClick={() => {
+                      setTableData(tableData.filter((x) => !(x === car)))
+                    }}
+                  />
+                  <ReactTooltip effect="solid" id="delete">
+                    Remover
+                  </ReactTooltip>
+                  <MdEdit data-tip data-for="edit" onClick={() => {}} />
+                  <ReactTooltip effect="solid" id="edit">
+                    Editar
+                  </ReactTooltip>
+                </S.ButtonsWrapper>
               </td>
             </tr>
           ))}
       </tbody>
-    </table>
+    </S.Table>
   )
 }

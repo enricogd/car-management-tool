@@ -8,12 +8,12 @@ export type ThemeType = typeof theme
 
 function App() {
   return (
-    <div>
-      <GlobalStyle />
+    <>
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <Dashboard />
       </ThemeProvider>
-    </div>
+    </>
   )
 }
 
