@@ -19,7 +19,7 @@ export const Table = styled.table`
       tr {
         &:hover {
           border-bottom: 1px solid transparent;
-          background-color: ${theme.colors.tertiary};
+          background-color: ${theme.colors.secondary};
           color: white;
           ${ButtonsWrapper} {
             opacity: 1;

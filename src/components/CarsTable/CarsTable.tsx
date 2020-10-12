@@ -1,6 +1,6 @@
 import { Car } from 'interfaces/Car'
 import React, { useEffect, useMemo, useState } from 'react'
-import { SortBy } from './types'
+import { CartTableProps, SortBy } from './types'
 import * as S from './styles'
 import { MdDelete, MdEdit } from 'react-icons/md'
 import {
@@ -10,7 +10,7 @@ import {
 } from 'react-icons/ti'
 import ReactTooltip from 'react-tooltip'
 
-export default function Carstable({ cars }: { cars: Car[] }) {
+export default function Carstable({ cars, handleEdit }: CartTableProps) {
   const [sortBy, setSortBy] = useState<SortBy>({
     header: 'default',
     order: 'asc',
@@ -102,8 +102,8 @@ export default function Carstable({ cars }: { cars: Car[] }) {
       </thead>
       <tbody>
         {tableData &&
-          tableData.map((car) => (
-            <tr key={car._id}>
+          tableData.map((car, idx) => (
+            <tr key={idx}>
               <td>{car.brand}</td>
               <td>
                 <p>{car.title}</p>
@@ -112,7 +112,7 @@ export default function Carstable({ cars }: { cars: Car[] }) {
                 <p>{car.age}</p>
               </td>
               <td>
-                <p>R$ {car.price}</p>
+                <p>{car.price}</p>
               </td>
               <td>
                 <S.ButtonsWrapper>
@@ -126,7 +126,13 @@ export default function Carstable({ cars }: { cars: Car[] }) {
                   <ReactTooltip effect="solid" id="delete">
                     Remover
                   </ReactTooltip>
-                  <MdEdit data-tip data-for="edit" onClick={() => {}} />
+                  <MdEdit
+                    data-tip
+                    data-for="edit"
+                    onClick={(x) => {
+                      handleEdit(car)
+                    }}
+                  />
                   <ReactTooltip effect="solid" id="edit">
                     Editar
                   </ReactTooltip>

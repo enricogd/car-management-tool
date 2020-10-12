@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios'
+import handleError from 'util/handleError'
 
 // import handleError from '../util/handleError'
 
@@ -10,15 +11,15 @@ const axiosInstance: AxiosInstance = axios.create({
   timeout: 3000,
 })
 
-// axiosInstance.interceptors.response.use(
-//   (response) => {
-//     return response
-//   },
-//   (err) => {
-//     console.log('RESPONSE', { err })
-//     handleError(err?.response?.data)
-//     throw err
-//   }
-// )
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  (err) => {
+    console.log('RESPONSE', { err })
+    handleError(err?.response?.data)
+    throw err
+  }
+)
 
 export default axiosInstance

@@ -1,5 +1,6 @@
+import { Input } from 'components/Input'
 import styled, { css } from 'styled-components/macro'
-import { transition } from 'styles/helpers'
+import { fontType, transition } from 'styles/helpers'
 
 export const Main = styled.main`
   display: flex;
@@ -59,6 +60,33 @@ export const Button = styled.button`
       position: relative;
       top: 0.5px;
       box-shadow: none;
+    }
+  `}
+`
+
+export const ModalInput = styled(Input)`
+  margin-bottom: ${(props) => props.theme.spacing.md};
+`
+
+export const SubmitButtonWrapper = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    button {
+      border: 2px solid white;
+      background-color: transparent;
+      border-radius: 20px;
+      color: white;
+      padding: ${theme.spacing.md};
+      cursor: pointer;
+      ${fontType('b')}
+
+      &:hover {
+        background-color: white;
+        color: ${theme.colors.secondary};
+      }
     }
   `}
 `

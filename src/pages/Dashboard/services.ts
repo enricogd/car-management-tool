@@ -6,3 +6,15 @@ export async function getCars() {
 
   return response.data
 }
+
+export async function postCar(car: Car) {
+  try {
+    const payload = { ...car }
+
+    const response = await axiosInstance.post('/cars', payload)
+
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}

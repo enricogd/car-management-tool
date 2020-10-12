@@ -8,6 +8,7 @@ export default {
     quaternary: '#8862e0',
     darkGrey: '#343a40',
     lightGrey: '#7e7e7e',
+    modalOverlay: '#0000008F',
   },
   breakPoints: {
     lg: 1200,
@@ -28,5 +29,17 @@ export default {
       xlarge: '1.5rem',
       xxlarge: '2rem',
     },
+  },
+  modal: {
+    sizes: {
+      lg: '10vw',
+      md: '20vw',
+      sm: '40vw',
+    },
+  },
+  spacing: {
+    lg: '32px',
+    md: '16px',
+    sm: '8px',
   },
 }

@@ -22,6 +22,6 @@ export const Row = styled.div`
 export const Col = styled.div`
   flex: ${(props: { size: number }) => props.size};
   flex-flow: column wrap;
-  margin: 8px;
+  margin: 0 ${(props) => props.theme.spacing.sm};
   min-width: fit-content;
 `
