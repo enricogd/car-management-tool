@@ -7,7 +7,7 @@ import axiosInstance from 'services/axiosInstance'
  */
 export async function postCar(car: Car) {
   try {
-    const payload: Car = { ...car, price: car.price.replace(/(R\$)/g, '') }
+    const payload = { ...car }
 
     const response = await axiosInstance.post('/cars', payload)
 
@@ -35,7 +35,7 @@ export async function putCar(car: Car) {
   const payload: Car = {
     title,
     brand,
-    price: price.replace(/(R\$)/g, ''),
+    price,
     age,
   }
   try {

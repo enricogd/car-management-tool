@@ -12,7 +12,6 @@ export default function Dashboard() {
   const [carsList, setCarsList] = useState<Car[]>([])
   const [targetCar, setTargetCar] = useState<Car>(new Car())
   const [isModalOpen, setIsModalOpen] = useState(false)
-  console.log({ targetCar })
 
   const fetchCars = async () => {
     const res = await getCars()
@@ -26,6 +25,11 @@ export default function Dashboard() {
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, id } = e.target
+
+    if (id === 'price') {
+      setTargetCar({ ...targetCar, price: value.replace(/([R$.,])/g, '') })
+      return
+    }
 
     setTargetCar({ ...targetCar, [id]: value })
   }
@@ -45,15 +49,20 @@ export default function Dashboard() {
     if (targetCar._id) {
       if (carsList.find((car) => car === targetCar)) {
         cogoToast.info('Nenhuma alteração foi feita', cogoDefaultOptions)
+        setIsModalOpen(false)
+        return
       } else {
         await putCar(targetCar)
+
         cogoToast.success('Carro editado com sucesso!', cogoDefaultOptions)
       }
 
       // If not, is in create mode
     } else {
       setCarsList([...carsList, targetCar])
+
       await postCar(targetCar)
+
       cogoToast.success('Carro cadastrado com sucesso!', cogoDefaultOptions)
     }
 
@@ -62,7 +71,7 @@ export default function Dashboard() {
   }
 
   const carValidate = () => {
-    const isAgeValid = targetCar.age > 1900 && targetCar.age < 2020
+    const isAgeValid = targetCar.age > 1900 && targetCar.age <= 2020
     !isAgeValid && cogoToast.error('Ano do carro inválido', cogoDefaultOptions)
 
     const isBrandValid = targetCar.brand.search(/\d/) === -1
@@ -70,6 +79,7 @@ export default function Dashboard() {
       cogoToast.error('Nome da marca inválido', cogoDefaultOptions)
 
     const isPriceValid = Number(targetCar.price) >= 0
+
     !isPriceValid && cogoToast.error('Preço inválido', cogoDefaultOptions)
 
     const isTitleValid = targetCar.title.search(/\d/) === -1
