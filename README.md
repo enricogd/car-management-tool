@@ -1,4 +1,11 @@
+# Car Managemet Tool
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## How to run
+
+1. Install the dependencies by running in the project directory `yarn`
+2. After step one, run `yarn start` and the project will run in development mode in [http://localhost:3000](http://localhost:3000)
 
 ## Available Scripts
 
