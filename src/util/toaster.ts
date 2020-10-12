@@ -23,7 +23,7 @@ export const CogoPositions = {
 
 const cogoDefaultOptions: CTOptions = {
   position: 'top-right',
-  hideAfter: 10,
+  hideAfter: 4,
 }
 
 export default cogoDefaultOptions

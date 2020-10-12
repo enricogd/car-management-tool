@@ -25,8 +25,8 @@ export const Section = styled.section`
 export const Header = styled.div`
   ${({ theme }) => css`
     align-items: center;
-    border-bottom: 1px solid ${theme.colors.primary};
-    color: ${theme.colors.primary};
+    border-bottom: 1px solid ${theme.colors.secondary};
+    color: ${theme.colors.secondary};
     display: flex;
     flex-direction: row;
     justify-content: space-between;

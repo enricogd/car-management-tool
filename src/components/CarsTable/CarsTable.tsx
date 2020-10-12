@@ -10,7 +10,11 @@ import {
 } from 'react-icons/ti'
 import ReactTooltip from 'react-tooltip'
 
-export default function Carstable({ cars, handleEdit }: CartTableProps) {
+export default function Carstable({
+  cars,
+  editHandler,
+  deleteHandler,
+}: CartTableProps) {
   const [sortBy, setSortBy] = useState<SortBy>({
     header: 'default',
     order: 'asc',
@@ -112,7 +116,12 @@ export default function Carstable({ cars, handleEdit }: CartTableProps) {
                 <p>{car.age}</p>
               </td>
               <td>
-                <p>{car.price}</p>
+                <p>
+                  {Number(car.price).toLocaleString('pt-br', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })}
+                </p>
               </td>
               <td>
                 <S.ButtonsWrapper>
@@ -120,7 +129,7 @@ export default function Carstable({ cars, handleEdit }: CartTableProps) {
                     data-tip
                     data-for="delete"
                     onClick={() => {
-                      setTableData(tableData.filter((x) => !(x === car)))
+                      deleteHandler(car._id)
                     }}
                   />
                   <ReactTooltip effect="solid" id="delete">
@@ -130,7 +139,7 @@ export default function Carstable({ cars, handleEdit }: CartTableProps) {
                     data-tip
                     data-for="edit"
                     onClick={(x) => {
-                      handleEdit(car)
+                      editHandler(car)
                     }}
                   />
                   <ReactTooltip effect="solid" id="edit">

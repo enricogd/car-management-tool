@@ -1,11 +1,12 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { getCars, postCar } from './services'
+import { deleteCar, getCars, postCar, putCar } from './services'
 import { CarsTable } from 'components/CarsTable'
 import { Car } from 'interfaces/Car'
 import * as S from './styles'
 import { Col, Container, Grid, Row } from 'styles/grid'
-import { cleaner } from 'util/cars'
 import { Modal } from 'components/Modal'
+import cogoToast from 'cogo-toast'
+import cogoDefaultOptions from 'util/toaster'
 
 export default function Dashboard() {
   const [carsList, setCarsList] = useState<Car[]>([])
@@ -14,7 +15,7 @@ export default function Dashboard() {
 
   const fetchCars = async () => {
     const res = await getCars()
-    setCarsList(cleaner(res))
+    setCarsList(res)
   }
 
   const modalHandler = (car?: Car) => {
@@ -28,19 +29,55 @@ export default function Dashboard() {
     setTargetCar({ ...targetCar, [id]: value })
   }
 
-  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (targetCar._id) {
-      const idx = carsList.findIndex((car) => car._id === targetCar._id)
-      const copy = [...carsList]
-      copy[idx] = targetCar
+  const deleteCarHandler = async (carId: Car['_id']) => {
+    await deleteCar(carId)
+    cogoToast.success('Carro removido com sucesso!', cogoDefaultOptions)
+    fetchCars()
+  }
 
-      setCarsList(copy)
+  const submitCarHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (!carValidate()) return
+
+    // If is in edit mode
+    if (targetCar._id) {
+      if (carsList.find((car) => car === targetCar)) {
+        cogoToast.info('Nenhuma alteração foi feita', cogoDefaultOptions)
+      } else {
+        await putCar(targetCar)
+        cogoToast.success('Carro editado com sucesso!', cogoDefaultOptions)
+      }
+
+      // If not, is in create mode
     } else {
       setCarsList([...carsList, targetCar])
       await postCar(targetCar)
+      cogoToast.success('Carro cadastrado com sucesso!', cogoDefaultOptions)
     }
+
+    fetchCars()
     setIsModalOpen(false)
+  }
+
+  const carValidate = () => {
+    const isAgeValid = targetCar.age > 1900 && targetCar.age < 2020
+    !isAgeValid && cogoToast.error('Ano do carro inválido', cogoDefaultOptions)
+
+    const isBrandValid = targetCar.brand.search(/\d/) === -1
+    !isBrandValid &&
+      cogoToast.error('Nome da marca inválido', cogoDefaultOptions)
+
+    const isPriceValid = Number(targetCar.price) >= 0
+    !isPriceValid && cogoToast.error('Preço inválido', cogoDefaultOptions)
+
+    const isTitleValid = targetCar.title.search(/\d/) === -1
+    !isTitleValid && cogoToast.error('Modelo inválido', cogoDefaultOptions)
+
+    const isCarValid =
+      isAgeValid && isBrandValid && isPriceValid && isTitleValid
+
+    return isCarValid
   }
 
   useEffect(() => {
@@ -49,7 +86,8 @@ export default function Dashboard() {
 
   const tableProps = {
     cars: carsList,
-    handleEdit: modalHandler,
+    editHandler: modalHandler,
+    deleteHandler: deleteCarHandler,
   }
 
   const modalTitle = targetCar._id
@@ -68,7 +106,7 @@ export default function Dashboard() {
         }}
         isActive={isModalOpen}>
         <Grid>
-          <form onSubmit={submitHandler}>
+          <form onSubmit={submitCarHandler}>
             <Row>
               <Col size={1}>
                 <S.ModalInput

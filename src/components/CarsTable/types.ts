@@ -7,5 +7,6 @@ export type SortBy = {
 
 export interface CartTableProps {
   cars: Car[]
-  handleEdit: (car?: Car | undefined) => void
+  editHandler: (car?: Car) => void
+  deleteHandler: (carId: Car['_id']) => Promise<void>
 }
