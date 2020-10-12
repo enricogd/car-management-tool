@@ -9,6 +9,7 @@ import {
   TiArrowUnsorted,
 } from 'react-icons/ti'
 import ReactTooltip from 'react-tooltip'
+import { brlFormat } from 'util/money'
 
 export default function Carstable({
   cars,
@@ -116,12 +117,7 @@ export default function Carstable({
                 <p>{car.age}</p>
               </td>
               <td>
-                <p>
-                  {Number(car.price).toLocaleString('pt-br', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  })}
-                </p>
+                <p>{brlFormat(car.price)}</p>
               </td>
               <td>
                 <S.ButtonsWrapper>

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { IInputPrimaryProps } from './types'
+import { InputProps } from './types'
 import * as S from './styles'
-export default function InputPrimary({
+export default function Input({
   label,
   id,
   className,
@@ -10,7 +10,7 @@ export default function InputPrimary({
   onChange,
   maxLength,
   ...rest
-}: IInputPrimaryProps) {
+}: InputProps) {
   return (
     <S.Input className={className}>
       <input

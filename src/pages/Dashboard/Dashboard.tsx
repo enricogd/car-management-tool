@@ -12,6 +12,7 @@ export default function Dashboard() {
   const [carsList, setCarsList] = useState<Car[]>([])
   const [targetCar, setTargetCar] = useState<Car>(new Car())
   const [isModalOpen, setIsModalOpen] = useState(false)
+  console.log({ targetCar })
 
   const fetchCars = async () => {
     const res = await getCars()
@@ -134,8 +135,7 @@ export default function Dashboard() {
                   onChange={changeHandler}
                   label="Ano"
                 />
-                <S.ModalInput
-                  type="number"
+                <S.ModalCurrencyInput
                   id={'price'}
                   value={targetCar.price}
                   onChange={changeHandler}

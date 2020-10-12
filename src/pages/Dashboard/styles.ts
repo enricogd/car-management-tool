@@ -1,3 +1,4 @@
+import { CurrencyInput } from 'components/CurrencyInput'
 import { Input } from 'components/Input'
 import styled, { css } from 'styled-components/macro'
 import { fontType, transition } from 'styles/helpers'
@@ -65,6 +66,9 @@ export const Button = styled.button`
 `
 
 export const ModalInput = styled(Input)`
+  margin-bottom: ${(props) => props.theme.spacing.md};
+`
+export const ModalCurrencyInput = styled(CurrencyInput)`
   margin-bottom: ${(props) => props.theme.spacing.md};
 `
 
