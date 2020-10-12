@@ -9,7 +9,7 @@ export async function postCar(car: Car) {
   try {
     const payload = { ...car }
 
-    const response = await axiosInstance.post('/cars', payload)
+    const response = await axiosInstance.post<Car>('/cars', payload)
 
     return response.data
   } catch (error) {
@@ -53,7 +53,7 @@ export async function putCar(car: Car) {
  */
 export async function deleteCar(carId: Car['_id']) {
   try {
-    const response = await axiosInstance.delete(`/cars/${carId}`)
+    const response = await axiosInstance.delete<Car>(`/cars/${carId}`)
 
     return response.data
   } catch (error) {
