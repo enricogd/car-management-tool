@@ -1,9 +1,9 @@
 import React from 'react'
+import MaskedInput from 'react-text-mask'
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
 import * as S from './styles'
 import { CurrencyInputProps } from './types'
-import MaskedInput from 'react-text-mask'
-import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
 export default function CurrencyInput({
   label,

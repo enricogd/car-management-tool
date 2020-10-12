@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components/macro'
 import { fontType, transition } from 'styles/helpers'
+
 import { IModalPrimaryStyledProps } from './types'
 
 export const ModalOverlay = styled.div<IModalPrimaryStyledProps>`

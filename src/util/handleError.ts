@@ -1,5 +1,6 @@
-import cogoDefaultOptions from './toaster'
 import cogoToast from 'cogo-toast'
+
+import cogoDefaultOptions from './toaster'
 
 interface IError {
   code: number

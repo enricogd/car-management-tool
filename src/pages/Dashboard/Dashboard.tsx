@@ -1,12 +1,13 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { deleteCar, getCars, postCar, putCar } from './services'
-import { CarsTable } from 'components/CarsTable'
-import { Car } from 'interfaces/Car'
-import * as S from './styles'
-import { Col, Container, Grid, Row } from 'styles/grid'
-import { Modal } from 'components/Modal'
 import cogoToast from 'cogo-toast'
+import { CarsTable } from 'components/CarsTable'
+import { Modal } from 'components/Modal'
+import { Car } from 'interfaces/Car'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { Col, Container, Grid, Row } from 'styles/grid'
 import cogoDefaultOptions from 'util/toaster'
+
+import { deleteCar, getCars, postCar, putCar } from './services'
+import * as S from './styles'
 
 export default function Dashboard() {
   const [carsList, setCarsList] = useState<Car[]>([])
@@ -108,79 +109,79 @@ export default function Dashboard() {
   const modalButton = targetCar._id ? 'EDITAR' : 'CADASTRAR'
 
   return (
-      <Container>
-        <Modal
-          size="md"
-          title={modalTitle}
-          onClose={() => {
-            setIsModalOpen(false)
-          }}
-          isActive={isModalOpen}>
-          <Grid>
-            <form onSubmit={submitCarHandler}>
-              <Row>
-                <Col size={1}>
-                  <S.ModalInput
-                    type="text"
-                    value={targetCar.brand}
-                    id={'brand'}
-                    onChange={changeHandler}
-                    label="Marca"
-                    maxLength={20}
-                  />
-                  <S.ModalInput
-                    type="text"
-                    id={'title'}
-                    value={targetCar.title}
-                    onChange={changeHandler}
-                    label="Modelo"
-                    maxLength={20}
-                  />
-                </Col>
-                <Col size={1}>
-                  <S.ModalInput
-                    type="number"
-                    id={'age'}
-                    value={targetCar.age}
-                    onChange={changeHandler}
-                    label="Ano"
-                  />
-                  <S.ModalCurrencyInput
-                    id={'price'}
-                    value={targetCar.price}
-                    onChange={changeHandler}
-                    label="Preço"
-                  />
-                </Col>
-              </Row>
-              <S.SubmitButtonWrapper>
-                <button type="submit">{modalButton}</button>
-              </S.SubmitButtonWrapper>
-            </form>
-          </Grid>
-        </Modal>
-        <S.Main>
-          <Grid>
+    <Container>
+      <Modal
+        size="md"
+        title={modalTitle}
+        onClose={() => {
+          setIsModalOpen(false)
+        }}
+        isActive={isModalOpen}>
+        <Grid>
+          <form onSubmit={submitCarHandler}>
             <Row>
               <Col size={1}>
-                <S.Section>
-                  <S.Header>
-                    <h2>Carros</h2>
-                    <S.Button
-                      onClick={() => {
-                        modalHandler()
-                      }}>
-                      +
-                    </S.Button>
-                  </S.Header>
-                  <S.Content>
-                    <CarsTable {...tableProps} />
-                  </S.Content>
-                </S.Section>
+                <S.ModalInput
+                  type="text"
+                  value={targetCar.brand}
+                  id={'brand'}
+                  onChange={changeHandler}
+                  label="Marca"
+                  maxLength={20}
+                />
+                <S.ModalInput
+                  type="text"
+                  id={'title'}
+                  value={targetCar.title}
+                  onChange={changeHandler}
+                  label="Modelo"
+                  maxLength={20}
+                />
+              </Col>
+              <Col size={1}>
+                <S.ModalInput
+                  type="number"
+                  id={'age'}
+                  value={targetCar.age}
+                  onChange={changeHandler}
+                  label="Ano"
+                />
+                <S.ModalCurrencyInput
+                  id={'price'}
+                  value={targetCar.price}
+                  onChange={changeHandler}
+                  label="Preço"
+                />
               </Col>
             </Row>
-          </Grid>
-        </S.Main>
-      </Container>
+            <S.SubmitButtonWrapper>
+              <button type="submit">{modalButton}</button>
+            </S.SubmitButtonWrapper>
+          </form>
+        </Grid>
+      </Modal>
+      <S.Main>
+        <Grid>
+          <Row>
+            <Col size={1}>
+              <S.Section>
+                <S.Header>
+                  <h2>Carros</h2>
+                  <S.Button
+                    onClick={() => {
+                      modalHandler()
+                    }}>
+                    +
+                  </S.Button>
+                </S.Header>
+                <S.Content>
+                  <CarsTable {...tableProps} />
+                </S.Content>
+              </S.Section>
+            </Col>
+          </Row>
+        </Grid>
+      </S.Main>
+    </Container>
   )
 }

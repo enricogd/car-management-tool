@@ -1,9 +1,8 @@
-import { IModalPrimaryProps } from './types'
-import * as S from './styles'
-
+import React from 'react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 
-import React from 'react'
+import * as S from './styles'
+import { IModalPrimaryProps } from './types'
 
 export default function Modal({
   isActive,

@@ -1,7 +1,5 @@
 import { Car } from 'interfaces/Car'
 import React, { useEffect, useMemo, useState } from 'react'
-import { CartTableProps, SortBy } from './types'
-import * as S from './styles'
 import { MdDelete, MdEdit } from 'react-icons/md'
 import {
   TiArrowSortedDown,
@@ -10,6 +8,9 @@ import {
 } from 'react-icons/ti'
 import ReactTooltip from 'react-tooltip'
 import { brlFormat } from 'util/money'
+
+import * as S from './styles'
+import { CartTableProps, SortBy } from './types'
 
 export default function Carstable({
   cars,
